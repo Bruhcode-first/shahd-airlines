@@ -1,0 +1,126 @@
+/* Stop 5: Badminton Court */
+
+#badminton .bd-wrap {
+  display: grid;
+  gap: 14px;
+}
+
+.bd-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--cream);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.bd-hud-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+.bd-pips {
+  display: inline-flex;
+  gap: 4px;
+}
+.bd-pip {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 1;
+  filter: grayscale(1);
+  opacity: .28;
+  transition: opacity .25s ease, filter .25s ease;
+}
+.bd-pip.on {
+  filter: none;
+  opacity: 1;
+}
+
+.bd-court {
+  position: relative;
+  overflow: hidden;
+  border: 4px solid var(--cream);
+  border-radius: 26px;
+  background: var(--sky);
+  box-shadow: var(--shadow);
+  -webkit-tap-highlight-color: transparent;
+}
+.bd-court canvas {
+  cursor: pointer;
+}
+
+.bd-pop {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--font-head), 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--coral);
+  white-space: nowrap;
+  pointer-events: none;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 7px var(--cream);
+  text-shadow: 0 4px 0 rgba(216, 79, 79, .35), 0 10px 22px rgba(31, 42, 68, .25);
+  transform: translate(-50%, -50%);
+}
+
+.bd-actions {
+  display: grid;
+  gap: 14px;
+}
+.bd-actions[hidden],
+.bd-win[hidden],
+.bd-skip[hidden] { display: none; }
+
+.bd-smash {
+  width: 100%;
+  min-height: 64px;
+  font-size: 22px;
+  letter-spacing: .12em;
+  touch-action: manipulation;
+}
+.bd-smash:focus-visible,
+.bd-skip:focus-visible,
+.bd-again:focus-visible {
+  outline: 3px solid var(--sea-deep);
+  outline-offset: 3px;
+}
+.bd-skip {
+  width: 100%;
+  font-size: 15px;
+}
+
+.bd-win {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.bd-win-text {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.bd-again { min-width: 180px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bd-pip { transition: none; }
+}
+
+/* narrow phones: keep the HUD on one line */
+.bd-hud-text { white-space: nowrap; }
+@media (max-width: 359px) {
+  .bd-hud { padding: 10px 12px; gap: 8px; }
+  .bd-hud-text { font-size: 13.5px; }
+  .bd-pips { gap: 2px; }
+  .bd-pip { font-size: 17px; }
+}

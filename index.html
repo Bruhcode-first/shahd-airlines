@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#EAF6FF">
+  <meta name="color-scheme" content="light">
+  <title>Shahd Airlines ✈️</title>
+  <meta name="description" content="Flight SH024 · Passenger: Shahd">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="You have a boarding pass ✈️">
+  <meta property="og:description" content="Flight SH024 · Passenger: Shahd">
+  <meta property="og:image" content="https://bruhcode-first.github.io/shahd-airlines/images/og-boarding-pass.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://bruhcode-first.github.io/shahd-airlines/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Gochi+Hand&family=Rubik:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+</head>
+<body class="locked">
+  <!-- Shared SVG defs: the cloud shape and the inky stamp filter. -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="cloud-shade" gradientUnits="userSpaceOnUse" x1="0" y1="8" x2="0" y2="126">
+        <stop offset="0" stop-color="#FFFFFF"/>
+        <stop offset=".62" stop-color="#FFFFFF"/>
+        <stop offset="1" stop-color="#DCEEFF"/>
+      </linearGradient>
+      <symbol id="cloud" viewBox="0 0 240 130">
+        <g fill="url(#cloud-shade)">
+          <circle cx="62" cy="80" r="40"/>
+          <circle cx="110" cy="56" r="52"/>
+          <circle cx="162" cy="70" r="40"/>
+          <circle cx="196" cy="92" r="28"/>
+          <rect x="34" y="78" width="186" height="46" rx="23"/>
+        </g>
+      </symbol>
+      <filter id="ink" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="grain"/>
+        <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="11" result="blotch"/>
+        <feColorMatrix in="blotch" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.8 1.75" result="inkMask"/>
+        <feComposite in="rough" in2="inkMask" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Drifting sky behind everything -->
+  <div class="sky" aria-hidden="true">
+    <svg class="sky-cloud c1"><use href="#cloud"/></svg>
+    <svg class="sky-cloud c2"><use href="#cloud"/></svg>
+    <svg class="sky-cloud c3"><use href="#cloud"/></svg>
+    <svg class="sky-cloud c4"><use href="#cloud"/></svg>
+    <svg class="sky-cloud c5"><use href="#cloud"/></svg>
+  </div>
+
+  <svg id="flightpath" aria-hidden="true" focusable="false"></svg>
+
+  <!-- 3.0 Boarding pass -->
+  <div id="boarding" role="dialog" aria-modal="true" aria-label="Boarding pass">
+    <div class="b-sky" aria-hidden="true"></div>
+    <div class="b-clouds b-clouds-far" aria-hidden="true">
+      <svg class="b-cloud" style="--x:6%;--y:9%;--w:120px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:70%;--y:5%;--w:150px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:-8%;--y:52%;--w:130px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:78%;--y:44%;--w:120px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:30%;--y:88%;--w:140px"><use href="#cloud"/></svg>
+    </div>
+    <div class="b-clouds b-clouds-mid" aria-hidden="true">
+      <svg class="b-cloud" style="--x:-14%;--y:20%;--w:190px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:68%;--y:24%;--w:200px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:62%;--y:80%;--w:210px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:-20%;--y:76%;--w:220px"><use href="#cloud"/></svg>
+    </div>
+
+    <div class="ticket-stage">
+      <article class="ticket" aria-label="Boarding pass for Shahd, flight SH024">
+        <div class="ticket-main">
+          <header class="ticket-head">
+            <div class="brand">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32"><path d="M29 14.6 19.6 12 13 2.8h-2.6l3.2 9.4-6.8-.4L4.4 8.4H2.6l1.6 6.2v2.8L2.6 23.6h1.8l2.4-3.4 6.8-.4-3.2 9.4H13l6.6-9.2 9.4-2.6c1.4-.4 1.4-2.4 0-2.8z" fill="currentColor"/></svg>
+              </span>
+              <span class="brand-name">Shahd Airlines</span>
+            </div>
+            <span class="ticket-kind">Boarding pass</span>
+          </header>
+
+          <div class="ticket-body">
+            <div class="field field-passenger">
+              <span class="label">Passenger</span>
+              <span class="value passenger">
+                <strong>SHAHD</strong>
+                <button class="shood" type="button" aria-label="SHOOD (struck through)"><s>SHOOD</s></button>
+              </span>
+              <span class="shood-bubble" role="status" hidden></span>
+            </div>
+
+            <div class="route">
+              <div class="port">
+                <span class="label">From</span>
+                <span class="code">MCT</span>
+                <span class="city">Muscat</span>
+              </div>
+              <div class="route-line" aria-hidden="true">
+                <span class="route-dots"></span>
+                <svg class="route-plane" viewBox="0 0 32 32"><path d="M29 14.6 19.6 12 13 2.8h-2.6l3.2 9.4-6.8-.4L4.4 8.4H2.6l1.6 6.2v2.8L2.6 23.6h1.8l2.4-3.4 6.8-.4-3.2 9.4H13l6.6-9.2 9.4-2.6c1.4-.4 1.4-2.4 0-2.8z" fill="currentColor"/></svg>
+              </div>
+              <div class="port port-to">
+                <span class="label">To</span>
+                <span class="code code-mystery">???</span>
+                <span class="city">Surprise</span>
+              </div>
+            </div>
+
+            <dl class="ticket-grid">
+              <div class="field"><dt class="label">Flight</dt><dd class="value mono">SH024</dd></div>
+              <div class="field"><dt class="label">Gate</dt><dd class="value mono">24</dd></div>
+              <div class="field"><dt class="label">Seat</dt><dd class="value mono">1A <small>(Window, obviously)</small></dd></div>
+              <div class="field field-class"><dt class="label">Class</dt><dd class="value"><span class="holo-chip">First</span></dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="perf" aria-hidden="true"></div>
+
+        <button class="stub" type="button">
+          <span class="stub-grip" aria-hidden="true"></span>
+          <span class="stub-text">Tear here to board ✂️</span>
+          <span class="stub-meta" aria-hidden="true">
+            <span class="barcode"></span>
+            <span class="stub-code">SH024 · 1A</span>
+          </span>
+        </button>
+      </article>
+    </div>
+
+    <div class="b-clouds b-clouds-near" aria-hidden="true">
+      <svg class="b-cloud" style="--x:-30%;--y:84%;--w:300px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:55%;--y:90%;--w:320px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:58%;--y:-8%;--w:280px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:-34%;--y:-4%;--w:260px"><use href="#cloud"/></svg>
+    </div>
+    <div class="b-clouds b-clouds-rush" aria-hidden="true">
+      <svg class="b-cloud" style="--x:-40%;--y:6%;--w:340px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:40%;--y:0%;--w:360px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:-30%;--y:34%;--w:380px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:30%;--y:40%;--w:400px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:-44%;--y:66%;--w:380px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:36%;--y:72%;--w:380px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:0%;--y:22%;--w:300px"><use href="#cloud"/></svg>
+      <svg class="b-cloud" style="--x:6%;--y:54%;--w:320px"><use href="#cloud"/></svg>
+    </div>
+    <div class="b-plane" aria-hidden="true">✈️</div>
+  </div>
+
+  <main id="app" class="column">
+    <!-- 3.1 Cabin announcement -->
+    <section id="welcome" class="section welcome" aria-labelledby="welcome-title">
+      <div class="welcome-card card">
+        <div class="pa" aria-hidden="true">
+          <span class="pa-light"></span><span class="pa-light"></span>
+          <span class="pa-waves"><i></i><i></i><i></i></span>
+        </div>
+        <p class="kicker">Cabin announcement</p>
+        <h2 id="welcome-title"><span lang="ar" dir="rtl">حياش الله</span> on board flight SH024! 🛫</h2>
+        <p class="lead">This is your captain speaking (it's Yousef). Today's flight includes ping pong, sudoku, doodles, way too much sugar and one big smash. Collect a stamp at every stop. <span lang="ar" dir="rtl">يلا بينا!</span></p>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- 3.2 Ping Pong Island -->
+    <section id="pingpong" class="section stop" data-stop="pingpong" aria-labelledby="pingpong-title">
+      <div class="flap" role="img" aria-label="Now arriving: Ping Pong Island"></div>
+      <p class="kicker">Stop 1 · Ping Pong Island 🏓</p>
+      <h2 id="pingpong-title">Warm-up rally</h2>
+      <p class="sub">Drag to move your paddle. Return the ball 5 times.</p>
+      <div class="stage"></div>
+    </section>
+
+    <!-- 3.3 Sudoku Lounge -->
+    <section id="sudoku" class="section stop" data-stop="sudoku" aria-labelledby="sudoku-title">
+      <div class="flap" role="img" aria-label="Now arriving: Sudoku Lounge"></div>
+      <p class="kicker">Stop 2 · Sudoku Lounge 🌙</p>
+      <h2 id="sudoku-title">Remember our first night?</h2>
+      <p class="sub">Discord games and sudoku until way too late. Here's a tiny one, 4×4 this time.</p>
+      <div class="stage"></div>
+    </section>
+
+    <!-- 3.4 Doodle Studio -->
+    <section id="doodle" class="section stop" data-stop="doodle" aria-labelledby="doodle-title">
+      <div class="flap" role="img" aria-label="Now arriving: Doodle Studio"></div>
+      <p class="kicker">Stop 3 · Doodle Studio 🎨</p>
+      <h2 id="doodle-title">Guess my drawing</h2>
+      <p class="sub">Sketch Heads rules: I draw, you guess. Brace yourself.</p>
+      <div class="stage"></div>
+    </section>
+
+    <!-- 3.5 The Sweet Shop -->
+    <section id="sweets" class="section stop" data-stop="sweets" aria-labelledby="sweets-title">
+      <div class="flap" role="img" aria-label="Now arriving: The Sweet Shop"></div>
+      <p class="kicker">Stop 4 · The Sweet Shop 🍫</p>
+      <h2 id="sweets-title">Your order is on the way</h2>
+      <p class="sub">Recommended by Yousef: still undefeated taste 😌</p>
+      <div class="stage"></div>
+    </section>
+
+    <!-- 3.6 Badminton Court -->
+    <section id="badminton" class="section stop" data-stop="badminton" aria-labelledby="badminton-title">
+      <div class="flap" role="img" aria-label="Now arriving: Badminton Court"></div>
+      <p class="kicker">Stop 5 · Badminton Court 🏸</p>
+      <h2 id="badminton-title">Smash time</h2>
+      <p class="sub">Tap when the shuttle reaches the glowing zone. 5 smashes to win.</p>
+      <div class="stage"></div>
+    </section>
+
+    <!-- 3.7 Landing -->
+    <section id="landing" class="section landing" aria-labelledby="landing-title">
+      <p class="kicker">Landing ✈️</p>
+      <h2 id="landing-title">Shahd's World</h2>
+      <p class="sub">We're landing… but first, your travel history.</p>
+      <div id="globe"></div>
+      <div id="been"></div>
+      <div id="next"></div>
+      <div id="passport-spread"></div>
+      <div id="signoff"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Shahd Airlines · Flight SH024 · made by Yousef</p>
+    <details class="credits">
+      <summary>Photo credits</summary>
+      <ul>
+        <li>Egypt: Simon Matzinger, CC BY 3.0</li>
+        <li>Turkey: Wolfgang Moroder, CC BY-SA 3.0</li>
+        <li>Dubai: Joi Ito, CC BY 2.0</li>
+        <li>Great Wall: Velatrix, CC0</li>
+        <li>Shanghai: dawvon, CC BY 2.0</li>
+        <li>Zhangjiajie: JL Cogburn, CC BY-SA 2.0</li>
+        <li>Luxor: Olaf Tausch, CC BY 3.0</li>
+        <li>Positano: Glen MacLarty, CC BY 2.0</li>
+        <li>Guanajuato: Juansean, public domain</li>
+        <li>Forbidden City: Peter Fuchs, CC BY-SA 2.0</li>
+        <li>Country shapes: Natural Earth, public domain</li>
+      </ul>
+      <p class="credits-src">All photos via Wikimedia Commons, cropped and resized.</p>
+    </details>
+  </footer>
+
+  <button id="passport-badge" type="button" aria-haspopup="dialog" aria-controls="passport-sheet">
+    <span class="pb-icon" aria-hidden="true">🛂</span>
+    <span class="pb-count">0/5</span>
+  </button>
+
+  <dialog id="passport-sheet" aria-labelledby="passport-sheet-title">
+    <div class="ps-inner">
+      <header class="ps-head">
+        <div>
+          <p class="ps-eyebrow">Shahd Airlines · SH024</p>
+          <h3 id="passport-sheet-title" class="ps-title">Passport</h3>
+        </div>
+        <button class="ps-close" type="button" aria-label="Close passport">✕</button>
+      </header>
+      <p class="ps-count" aria-live="polite"></p>
+      <div class="ps-slots"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

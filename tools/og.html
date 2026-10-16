@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shahd Airlines link preview</title>
+<!-- Rendered to public/images/og-boarding-pass.png (1200x630) with Playwright: see README. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Rubik:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root {
+    --sky: #EAF6FF; --sky-deep: #8EC5FF; --sea: #2EC4B6; --sea-deep: #12867C;
+    --coral: #FF6B6B; --sand: #F6E7C8; --cream: #FFFBF4; --ink: #1F2A44; --ink-soft: #5F6B85;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; font-family: Rubik, system-ui, sans-serif; color: var(--ink); }
+  .og {
+    position: relative; width: 1200px; height: 630px; overflow: hidden;
+    background:
+      radial-gradient(900px 500px at 78% 8%, #FFFFFF 0%, rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, #BFE0FF 0%, #DDF0FF 48%, var(--sky) 100%);
+  }
+  .cloud { position: absolute; display: block; }
+  .route {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  /* headline */
+  .copy { position: absolute; left: 70px; top: 158px; width: 540px; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 9px 18px; border-radius: 999px;
+    background: rgba(255,255,255,.75); border: 2px solid rgba(46,196,182,.35);
+    font: 700 17px/1 'Space Mono', monospace; letter-spacing: .14em; color: var(--sea-deep);
+  }
+  h1 {
+    margin: 0; font: 700 64px/1.04 Fredoka, sans-serif; letter-spacing: -.01em;
+  }
+  h1 .plane { display: inline-block; transform: translateY(4px); }
+  .sub { margin: 22px 0 0; font: 500 26px/1.35 Rubik, sans-serif; color: var(--ink-soft); }
+  .sub b { color: var(--ink); font-weight: 700; }
+
+  /* the pass */
+  .pass {
+    position: absolute; left: 620px; top: 52px; width: 530px; height: 520px;
+    transform: rotate(4deg);
+    border-radius: 30px; background: var(--cream);
+    box-shadow: 0 30px 60px rgba(31,42,68,.18), 0 6px 16px rgba(31,42,68,.10);
+    overflow: hidden;
+  }
+  .head {
+    height: 92px; padding: 0 30px; display: flex; align-items: center; gap: 16px;
+    background:
+      repeating-radial-gradient(circle at 110% -40%, rgba(255,255,255,.14) 0 2px, transparent 2px 22px),
+      linear-gradient(120deg, #4FD6C8, var(--sea) 55%, #21AFA3);
+    color: #fff;
+  }
+  .logo {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--cream);
+    display: grid; place-items: center;
+  }
+  .brand { font: 700 32px/1 Fredoka, sans-serif; text-shadow: 0 2px 0 rgba(18,134,124,.35); }
+  .bp { margin-left: auto; text-align: right; font: 700 14px/1.35 'Space Mono', monospace; letter-spacing: .2em; opacity: .95; }
+  .body { padding: 22px 32px 0; position: relative; }
+  .label { font: 700 13px/1 'Space Mono', monospace; letter-spacing: .22em; color: var(--ink-soft); }
+  .name { margin-top: 10px; display: flex; align-items: baseline; gap: 14px; }
+  .name strong { font: 700 54px/1 Fredoka, sans-serif; letter-spacing: .01em; }
+  .name s {
+    font: 700 26px/1 Fredoka, sans-serif; color: var(--ink-soft);
+    text-decoration-color: var(--coral); text-decoration-thickness: 4px;
+  }
+  .rule { margin: 18px 0; border-top: 2px dashed rgba(95,107,133,.25); }
+  .route-row { display: flex; align-items: flex-start; justify-content: space-between; }
+  .code { font: 700 58px/1 'Space Mono', monospace; letter-spacing: -.02em; }
+  .code.q { color: var(--coral); font-family: Fredoka, sans-serif; letter-spacing: .04em; text-align: right; line-height: .9; }
+  .city { margin-top: 6px; font: 400 18px/1 Rubik, sans-serif; color: var(--ink-soft); }
+  .city.r { text-align: right; }
+  .dots { flex: 1; margin: 0 22px; display: flex; align-items: center; gap: 10px; transform: translateY(14px); }
+  .dots i { flex: 1; border-top: 3px dotted var(--sky-deep); }
+  .grid { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; }
+  .grid .v { margin-top: 8px; font: 700 30px/1 'Space Mono', monospace; }
+  .first {
+    display: inline-block; margin-top: 4px; padding: 6px 14px; border-radius: 10px;
+    font: 700 22px/1 Fredoka, sans-serif; letter-spacing: .08em;
+    background: linear-gradient(110deg, #FFE3F1, #E3F2FF 40%, #E6FFF6 60%, #FFF4D8);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.9), 0 2px 8px rgba(31,42,68,.12);
+  }
+  .stub {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 76px;
+    background: #FBF1DE; border-top: 3px dashed rgba(95,107,133,.35);
+    display: flex; align-items: center; padding: 0 32px; gap: 16px;
+  }
+  .stub .tear { font: 600 24px/1 Fredoka, sans-serif; color: var(--sea-deep); }
+  .barcode {
+    margin-left: auto; width: 150px; height: 44px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0 3px, transparent 3px 5px, var(--ink) 5px 6px, transparent 6px 9px, var(--ink) 9px 13px, transparent 13px 15px);
+    opacity: .85;
+  }
+  .notch { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: #CFE7FF; bottom: 59px; }
+  .notch.l { left: -17px; } .notch.r { right: -17px; }
+  .ghost { position: absolute; right: -30px; top: 150px; font-size: 220px; opacity: .06; transform: rotate(-12deg); }
+</style>
+</head>
+<body>
+<div class="og" id="og">
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="cs" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFFFFF"/><stop offset=".62" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCEEFF"/>
+      </linearGradient>
+      <symbol id="cloud" viewBox="0 0 240 130">
+        <g fill="url(#cs)">
+          <circle cx="62" cy="80" r="40"/><circle cx="110" cy="56" r="52"/><circle cx="162" cy="70" r="40"/>
+          <circle cx="196" cy="92" r="28"/><rect x="34" y="78" width="186" height="46" rx="23"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <svg class="cloud" style="left:-60px;top:-30px;width:300px;height:163px;opacity:.95"><use href="#cloud"/></svg>
+  <svg class="cloud" style="left:430px;top:12px;width:210px;height:114px;opacity:.85"><use href="#cloud"/></svg>
+  <svg class="cloud" style="left:1010px;top:-26px;width:260px;height:141px"><use href="#cloud"/></svg>
+  <svg class="cloud" style="left:-80px;top:470px;width:420px;height:228px"><use href="#cloud"/></svg>
+  <svg class="cloud" style="left:300px;top:520px;width:330px;height:179px;opacity:.95"><use href="#cloud"/></svg>
+  <svg class="cloud" style="left:940px;top:500px;width:360px;height:195px"><use href="#cloud"/></svg>
+
+  <svg class="route" viewBox="0 0 1200 630" aria-hidden="true">
+    <path d="M80 478 C 230 430, 380 520, 590 430" fill="none" stroke="#8EC5FF" stroke-width="4" stroke-dasharray="2 14" stroke-linecap="round"/>
+  </svg>
+
+  <div class="copy">
+    <h1>You have a boarding pass <span class="plane">✈️</span></h1>
+    <p class="sub">Flight SH024 · Passenger: <b>Shahd</b></p>
+  </div>
+
+  <div class="pass">
+    <div class="head">
+      <span class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#12867C" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
+      </span>
+      <span class="brand">Shahd Airlines</span>
+      <span class="bp">BOARDING<br>PASS</span>
+    </div>
+    <div class="body">
+      <span class="ghost">✈</span>
+      <div class="label">PASSENGER</div>
+      <div class="name"><strong>SHAHD</strong><s>SHOOD</s></div>
+      <div class="rule"></div>
+      <div class="route-row">
+        <div><div class="code">MCT</div><div class="city">Muscat</div></div>
+        <div class="dots"><i></i><svg width="30" height="30" viewBox="0 0 24 24"><path fill="#2EC4B6" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></svg><i></i></div>
+        <div><div class="code q">???</div><div class="city r">Surprise</div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="grid">
+        <div><div class="label">FLIGHT</div><div class="v">SH024</div></div>
+        <div><div class="label">GATE</div><div class="v">24</div></div>
+        <div><div class="label">SEAT</div><div class="v">1A</div></div>
+        <div><div class="label">CLASS</div><span class="first">FIRST</span></div>
+      </div>
+    </div>
+    <span class="notch l"></span><span class="notch r"></span>
+    <div class="stub"><span class="tear">Tear here to board ✂️</span><span class="barcode"></span></div>
+  </div>
+</div>
+</body>
+</html>

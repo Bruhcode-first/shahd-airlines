@@ -1,0 +1,140 @@
+/* Doodle Studio */
+#doodle .stage { display: grid; gap: 14px; }
+.dd-guess { display: grid; gap: 14px; }
+
+.dd-book, .dd-paper {
+  position: relative;
+  padding: 22px 18px 18px;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 27px, rgba(142, 197, 255, .35) 27px 28px),
+    linear-gradient(90deg, transparent 0 36px, rgba(255, 107, 107, .35) 36px 37px, transparent 37px),
+    #FFFDF7;
+  border-radius: 8px 18px 18px 8px;
+  transform: rotate(-1.2deg);
+  overflow: visible;
+}
+.dd-book::before {
+  /* spiral binding */
+  content: '';
+  position: absolute; left: 10px; top: 14px; bottom: 14px; width: 10px;
+  background: radial-gradient(circle at 50% 50%, #1F2A44 0 2.5px, rgba(31,42,68,.12) 3px 5px, transparent 5.5px) 0 0 / 10px 28px repeat-y;
+  pointer-events: none;
+}
+.dd-art {
+  position: relative;
+  display: block; width: 100%; max-width: 300px; margin: 0 auto;
+  aspect-ratio: 1; overflow: visible;
+  padding-left: 14px;
+}
+.dd-art path {
+  fill: none; stroke: #1F2A44; stroke-width: 4;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.dd-pencil {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  font-size: 30px; line-height: 1; opacity: 0;
+  margin: -26px 0 0 0; /* tip near the point */
+  pointer-events: none;
+  filter: drop-shadow(0 2px 2px rgba(31, 42, 68, .25));
+}
+.dd-tape {
+  position: absolute; top: -10px; width: 74px; height: 22px; z-index: 3;
+  background: rgba(246, 231, 200, .85);
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.35) 0 4px, transparent 4px 8px);
+  box-shadow: 0 1px 3px rgba(31, 42, 68, .15);
+}
+.dd-tape-l { left: 18px; transform: rotate(-6deg); }
+.dd-tape-r { right: 18px; transform: rotate(5deg); background-color: rgba(142, 197, 255, .7); }
+
+.dd-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.dd-answer {
+  appearance: none; min-height: 54px; padding: 10px 12px;
+  border: 2px solid rgba(31, 42, 68, .12); border-radius: 16px;
+  font: 600 16px/1.15 var(--font-head); color: var(--ink);
+  background: var(--cream);
+  box-shadow: 0 4px 0 rgba(31, 42, 68, .14);
+  cursor: pointer; touch-action: manipulation;
+  transition: transform .12s, box-shadow .12s, background .2s, border-color .2s, opacity .2s;
+}
+.dd-answer:disabled { cursor: default; opacity: .6; }
+.dd-answer:not(:disabled):active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(31, 42, 68, .14); }
+.dd-answer.is-right { opacity: 1; background: #DDF7F3; border-color: var(--sea); color: var(--sea-deep); }
+.dd-answer.is-picked-wrong { opacity: 1; background: #FFE3E3; border-color: var(--coral); }
+
+.dd-result { display: grid; gap: 8px; }
+.dd-line {
+  margin: 0; padding: 14px 16px; border-radius: var(--radius-sm);
+  font: 500 17px/1.35 var(--font-head); background: var(--cream);
+  border: 1px solid rgba(31, 42, 68, .08); box-shadow: var(--shadow-sm);
+}
+.dd-line.is-good { background: #DDF7F3; color: var(--sea-deep); }
+.dd-line.is-oops { background: #FFE9E6; color: #B23A3A; }
+.dd-then { font-family: var(--font-hand); font-size: 21px; font-weight: 400; color: var(--ink); background: var(--sand); }
+
+/* ---- part 2 ---- */
+.dd-studio { display: grid; gap: 14px; margin-top: 20px; }
+.dd-prompt { margin: 0; font: 600 22px/1.2 var(--font-head); text-align: center; }
+.dd-paper { padding: 14px; transform: rotate(.8deg); border-radius: 10px; background: #FFFDF7; }
+.dd-paper .dd-canvas {
+  border-radius: 6px; background: #fff; cursor: crosshair;
+  box-shadow: inset 0 0 0 1px rgba(31, 42, 68, .12);
+}
+.dd-hint {
+  position: absolute; left: 14px; right: 14px; top: 14px; bottom: 14px;
+  display: grid; place-content: center; text-align: center;
+  font: 400 26px var(--font-hand); color: rgba(31, 42, 68, .3);
+  pointer-events: none; transition: opacity .3s;
+}
+.dd-hint span { font-size: 38px; display: block; animation: dd-wiggle 2.4s ease-in-out infinite; }
+.dd-hint.is-gone { opacity: 0; }
+@keyframes dd-wiggle { 0%, 100% { transform: rotate(-8deg) translateX(-6px); } 50% { transform: rotate(8deg) translateX(6px); } }
+
+.dd-artist {
+  margin: 0; text-align: center;
+  font: 400 22px var(--font-hand); color: var(--coral);
+}
+.dd-artist:empty { display: none; }
+
+.dd-tools {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 22px;
+  padding: 12px 14px; background: var(--cream); border-radius: var(--radius);
+  border: 1px solid rgba(31, 42, 68, .06); box-shadow: var(--shadow-sm);
+}
+.dd-swatches, .dd-brushes { display: flex; gap: 10px; align-items: center; }
+.dd-swatch {
+  appearance: none; width: 36px; height: 36px; padding: 0; border-radius: 50%;
+  background: var(--c); border: 3px solid #fff; cursor: pointer; touch-action: manipulation;
+  box-shadow: 0 0 0 1px rgba(31, 42, 68, .18), 0 3px 6px rgba(31, 42, 68, .15);
+}
+.dd-swatch[aria-checked="true"] { box-shadow: 0 0 0 3px var(--ink), 0 3px 8px rgba(31, 42, 68, .25); transform: scale(1.1); }
+.dd-brush {
+  appearance: none; width: 40px; height: 40px; padding: 0; border-radius: 12px;
+  display: grid; place-items: center; cursor: pointer; touch-action: manipulation;
+  background: #fff; border: 2px solid rgba(31, 42, 68, .12);
+}
+.dd-brush i { display: block; width: var(--d); height: var(--d); border-radius: 50%; background: var(--ink); }
+.dd-brush[aria-checked="true"] { border-color: var(--ink); background: var(--sand); }
+.dd-swatch:focus-visible, .dd-brush:focus-visible, .dd-answer:focus-visible {
+  outline: 3px solid var(--sea-deep); outline-offset: 3px;
+}
+
+.dd-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.dd-row .btn { padding-inline: 10px; font-size: 16px; }
+.dd-actions .btn { white-space: nowrap; }
+
+/* ---- fallback overlay ---- */
+.dd-overlay {
+  position: fixed; inset: 0; z-index: 120; display: grid; place-items: center;
+  padding: 20px; background: rgba(31, 42, 68, .55); backdrop-filter: blur(4px);
+}
+.dd-ov-card { width: min(100%, 380px); padding: 18px; display: grid; gap: 12px; text-align: center; max-height: 100%; overflow: auto; }
+.dd-ov-title { margin: 0; font: 600 20px/1.25 var(--font-head); }
+.dd-ov-img {
+  width: 100%; height: auto; border-radius: 10px; border: 6px solid #fff;
+  box-shadow: var(--shadow-sm); transform: rotate(-1deg); -webkit-touch-callout: default; user-select: auto;
+}
+.dd-ov-note { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-hint span { animation: none; }
+}

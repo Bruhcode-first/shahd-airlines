@@ -1,0 +1,600 @@
+/* Boarding pass intro: ticket, holographic sheen, tilt, jagged tear, cloud layers. */
+
+#boarding {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: calc(18px + var(--safe-top)) 18px calc(18px + var(--safe-bottom));
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.b-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 55% at 50% 38%, rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, 0) 70%),
+    radial-gradient(70% 50% at 85% 100%, rgba(46, 196, 182, .18) 0%, rgba(46, 196, 182, 0) 70%),
+    linear-gradient(180deg, #CFE8FF 0%, var(--sky) 45%, #F4FAFF 100%);
+}
+
+/* Sun glow in the corner */
+.b-sky::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -110px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 224, 150, .55) 0%, rgba(255, 224, 150, 0) 65%);
+  pointer-events: none;
+}
+
+/* ---------- Cloud layers ---------- */
+
+.b-clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: 50% 46%;
+  will-change: transform, opacity;
+}
+.b-cloud {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: auto;
+  aspect-ratio: 240 / 130;
+  overflow: visible;
+}
+.b-clouds-far { opacity: .7; }
+.b-clouds-far .b-cloud { animation: bob 7s ease-in-out infinite; }
+.b-clouds-mid { opacity: .85; }
+.b-clouds-mid .b-cloud { animation: bob 9s ease-in-out infinite reverse; }
+.b-clouds-near { z-index: 3; filter: drop-shadow(0 18px 30px rgba(110, 160, 220, .25)); }
+.b-clouds-near .b-cloud { animation: bob 11s ease-in-out infinite; }
+.b-clouds-rush {
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+}
+.b-clouds-rush::before {
+  content: '';
+  position: absolute;
+  inset: 18% 10%;
+  border-radius: 50%;
+  background: #FFFFFF;
+  filter: blur(40px);
+}
+.b-clouds-rush .b-cloud { filter: drop-shadow(0 10px 18px rgba(142, 197, 255, .3)); }
+.b-cloud:nth-child(2n) { animation-delay: -3s; }
+.b-cloud:nth-child(3n) { animation-delay: -5s; }
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 14px -6px; }
+}
+
+/* ---------- Ticket ---------- */
+
+.ticket-stage {
+  position: relative;
+  z-index: 2;
+  width: min(342px, 100%);
+  perspective: 900px;
+}
+
+.ticket {
+  --stub-h: 112px;
+  --notch: 13px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform-style: flat;
+  filter: drop-shadow(0 2px 2px rgba(31, 42, 68, .06)) drop-shadow(0 22px 34px rgba(31, 42, 68, .20));
+}
+
+.ticket-main {
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 100% 100%, rgba(246, 231, 200, .55) 0%, rgba(246, 231, 200, 0) 60%),
+    var(--cream);
+  border-radius: 24px 24px 6px 6px;
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 100%, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 97%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 100%, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* Header strip with holographic sheen */
+.ticket-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 15px;
+  color: #FFFFFF;
+  background:
+    radial-gradient(140% 120% at 0% 0%, rgba(255, 255, 255, .25) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(135deg, #3AD6C6 0%, var(--sea) 45%, #1AA79A 100%);
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+.ticket-head::before {
+  /* subtle wave pattern */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(circle at 110% 160%, rgba(255, 255, 255, .09) 0 2px, transparent 2px 11px);
+  pointer-events: none;
+}
+.ticket-head::after,
+.holo-chip::after {
+  /* the holographic foil sweep */
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(115deg,
+    transparent 0%, transparent calc(var(--hx, 0%) + 18%),
+    rgba(255, 255, 255, .0) calc(var(--hx, 0%) + 22%),
+    rgba(255, 255, 255, .75) calc(var(--hx, 0%) + 30%),
+    rgba(255, 170, 220, .55) calc(var(--hx, 0%) + 34%),
+    rgba(150, 230, 255, .6) calc(var(--hx, 0%) + 38%),
+    rgba(200, 255, 190, .45) calc(var(--hx, 0%) + 42%),
+    rgba(255, 255, 255, 0) calc(var(--hx, 0%) + 50%),
+    transparent 100%);
+  background-size: 260% 100%;
+  mix-blend-mode: soft-light;
+  animation: holo 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.ticket-head::after { mix-blend-mode: overlay; opacity: .9; }
+
+@keyframes holo {
+  0%   { background-position: 120% 0; }
+  60%  { background-position: -20% 0; }
+  100% { background-position: -20% 0; }
+}
+
+.brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  color: var(--sea-deep);
+  background: var(--cream);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(18, 134, 124, .35);
+}
+.brand-mark svg { width: 20px; height: 20px; transform: rotate(-30deg); }
+.brand-name {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: .005em;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(18, 134, 124, .35);
+}
+.ticket-kind {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.25;
+  max-width: 70px;
+  opacity: .92;
+}
+
+.ticket-body {
+  position: relative;
+  padding: 18px 20px 22px;
+}
+.ticket-body::before {
+  /* faint watermark plane */
+  content: '';
+  position: absolute;
+  right: -18px;
+  bottom: 30px;
+  width: 150px;
+  height: 150px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M29 14.6 19.6 12 13 2.8h-2.6l3.2 9.4-6.8-.4L4.4 8.4H2.6l1.6 6.2v2.8L2.6 23.6h1.8l2.4-3.4 6.8-.4-3.2 9.4H13l6.6-9.2 9.4-2.6c1.4-.4 1.4-2.4 0-2.8z' fill='%232EC4B6'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: .06;
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  opacity: .85;
+}
+
+.field-passenger { position: relative; }
+.passenger {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 2px;
+}
+.passenger strong {
+  font-family: var(--font-head);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: .03em;
+  color: var(--ink);
+}
+.shood {
+  position: relative;
+  padding: 4px 6px;
+  margin: -4px -6px;
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.shood s {
+  text-decoration: none;
+  position: relative;
+}
+.shood s::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  top: 47%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--coral);
+  transform: rotate(-4deg);
+}
+.shood:active { transform: scale(.94); }
+
+.shood-bubble {
+  position: absolute;
+  z-index: 5;
+  left: 96px;
+  top: -40px;
+  padding: 9px 13px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: #FFFFFF;
+  background: var(--coral);
+  border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 8px 18px rgba(255, 107, 107, .35);
+  transform-origin: 0% 100%;
+}
+.shood-bubble::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  bottom: -7px;
+  border: 8px solid transparent;
+  border-top-color: var(--coral);
+  border-bottom: 0;
+  border-left-width: 4px;
+  border-right-width: 10px;
+}
+.shood-bubble[hidden] { display: none; }
+
+/* Route */
+.route {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 16px;
+  padding: 14px 0;
+  border-top: 1px dashed rgba(31, 42, 68, .14);
+  border-bottom: 1px dashed rgba(31, 42, 68, .14);
+}
+.port { display: flex; flex-direction: column; }
+.port-to { align-items: flex-end; text-align: right; }
+.code {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.code-mystery { color: var(--coral); }
+.city { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+
+.route-line {
+  position: relative;
+  height: 34px;
+  margin: 0 2px;
+}
+.route-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: radial-gradient(circle, var(--sky-deep) 1.2px, transparent 1.6px) 0 50% / 8px 2px repeat-x;
+}
+.route-plane {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  color: var(--sea);
+  padding: 3px;
+  background: var(--cream);
+  border-radius: 50%;
+  animation: hop 3.2s ease-in-out infinite;
+}
+@keyframes hop {
+  0%, 100% { translate: -14px 0; }
+  50% { translate: 14px -3px; }
+}
+
+/* Grid */
+.ticket-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+  margin: 0;
+}
+.ticket-grid .field { min-width: 0; }
+.ticket-grid dt { margin: 0; }
+.ticket-grid dd { margin: 3px 0 0; }
+.value {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+}
+.value.mono {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.value small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.holo-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 14px;
+  overflow: hidden;
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #2B3554;
+  border-radius: 9px;
+  background:
+    linear-gradient(115deg, #FFE3F1 0%, #D9F1FF 22%, #E4FFE9 40%, #FFF3D1 58%, #F0DEFF 78%, #D7FAF6 100%);
+  background-size: 200% 100%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(31, 42, 68, .08), 0 3px 10px rgba(142, 197, 255, .45);
+  animation: foil 6s linear infinite;
+}
+.holo-chip::after { mix-blend-mode: normal; opacity: .95; animation-duration: 2.8s; }
+@keyframes foil {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* Perforation */
+.perf {
+  position: relative;
+  z-index: 1;
+  height: 0;
+  margin: 0 var(--notch);
+  border-top: 2.5px dashed rgba(95, 107, 133, .32);
+  transform: translateY(-1px);
+}
+
+/* Stub */
+.stub {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--stub-h);
+  padding: 14px 20px 16px;
+  text-align: left;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(246, 231, 200, .45), rgba(246, 231, 200, .15)),
+    var(--cream);
+  border: 0;
+  border-radius: 6px 6px 22px 22px;
+  cursor: grab;
+  touch-action: none;
+  transform-origin: 15% 0%;
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 0, #0000 97%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 0, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+.stub:active { cursor: grabbing; }
+.stub:focus-visible { outline-offset: -6px; }
+.stub-grip {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  width: 36px;
+  height: 4px;
+  margin-left: -18px;
+  border-radius: 2px;
+  background: rgba(95, 107, 133, .22);
+}
+.stub-text {
+  white-space: nowrap;
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--sea-deep);
+}
+.stub-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+.barcode {
+  display: block;
+  width: 62px;
+  height: 46px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--ink) 0 2px, transparent 2px 4px,
+      var(--ink) 4px 5px, transparent 5px 8px,
+      var(--ink) 8px 11px, transparent 11px 12px,
+      var(--ink) 12px 13px, transparent 13px 16px,
+      var(--ink) 16px 17px, transparent 17px 19px);
+  opacity: .82;
+  border-radius: 2px;
+}
+.stub-code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--ink-soft);
+}
+
+/* Nudge on the stub so she knows it's tearable */
+.stub-text::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--coral), rgba(255, 107, 107, 0));
+  animation: nudge 2.4s ease-in-out infinite;
+  transform-origin: left center;
+}
+@keyframes nudge {
+  0%, 100% { transform: scaleX(.4); opacity: .5; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
+/* The jagged tear (applied the moment it rips) */
+.ticket.torn .stub {
+  -webkit-mask: none;
+  mask: none;
+  clip-path: polygon(0% 7px, 3% 0px, 6% 6px, 9% 1px, 12% 7px, 15% 0px, 18% 5px, 21% 1px, 24% 7px, 27% 2px, 30% 6px, 33% 0px, 36% 7px, 39% 1px, 42% 5px, 45% 0px, 48% 7px, 51% 2px, 54% 6px, 57% 0px, 60% 7px, 63% 1px, 66% 5px, 69% 0px, 72% 7px, 75% 2px, 78% 6px, 81% 0px, 84% 7px, 87% 1px, 90% 6px, 93% 0px, 96% 7px, 100% 2px, 100% 100%, 0% 100%);
+}
+.ticket.torn .ticket-main {
+  -webkit-mask: none;
+  mask: none;
+  border-radius: 24px 24px 0 0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 5px), 97% 100%, 94% calc(100% - 6px), 91% calc(100% - 1px), 88% calc(100% - 7px), 85% 100%, 82% calc(100% - 5px), 79% calc(100% - 1px), 76% calc(100% - 6px), 73% 100%, 70% calc(100% - 7px), 67% calc(100% - 2px), 64% calc(100% - 6px), 61% 100%, 58% calc(100% - 7px), 55% calc(100% - 1px), 52% calc(100% - 5px), 49% 100%, 46% calc(100% - 7px), 43% calc(100% - 2px), 40% calc(100% - 6px), 37% 100%, 34% calc(100% - 7px), 31% calc(100% - 1px), 28% calc(100% - 5px), 25% 100%, 22% calc(100% - 7px), 19% calc(100% - 2px), 16% calc(100% - 6px), 13% 100%, 10% calc(100% - 7px), 7% calc(100% - 1px), 4% calc(100% - 6px), 0% calc(100% - 2px));
+}
+.ticket.torn .perf { opacity: 0; }
+
+/* The plane that crosses the pass */
+.b-plane {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  font-size: 64px;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 12px rgba(31, 42, 68, .25));
+}
+.b-plane::before {
+  /* contrail */
+  content: '';
+  position: absolute;
+  right: 70%;
+  top: 62%;
+  width: 70vw;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .95));
+  transform: rotate(-8deg);
+  transform-origin: right center;
+}
+
+/* Short screens: tighten the ticket */
+@media (max-height: 640px) {
+  .b-clouds-near .b-cloud:nth-child(n+3) { display: none; }
+  .b-clouds-near .b-cloud { --w: 220px !important; }
+  .ticket { --stub-h: 92px; }
+  .ticket-head { padding: 12px 16px; }
+  .ticket-body { padding: 12px 18px 14px; }
+  .passenger strong { font-size: 28px; }
+  .route { margin: 10px 0; padding: 8px 0; }
+  .code { font-size: 32px; }
+  .ticket-grid { gap: 8px 12px; }
+  .value.mono { font-size: 19px; }
+  .barcode { height: 36px; width: 56px; }
+}
+
+@media (max-width: 360px) {
+  .brand-name { font-size: 17px; }
+  .ticket-kind { font-size: 9px; }
+  .code { font-size: 34px; }
+  .stub-text { font-size: 17px; }
+  .barcode { width: 40px; }
+  .stub-code { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .b-cloud, .route-plane, .stub-text::after { animation: none; }
+  .ticket-head::after, .holo-chip::after { animation: none; background-position: 40% 0; }
+  .holo-chip { animation: none; }
+}

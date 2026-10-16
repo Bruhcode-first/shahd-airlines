@@ -1,0 +1,138 @@
+/* Stop 1: Ping Pong Island */
+
+#pingpong .stage { margin-top: 20px; }
+
+.pp { position: relative; }
+
+.pp-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  border-radius: 18px;
+}
+
+.pp-count {
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--sea-deep);
+}
+
+.pp-pips { display: inline-flex; gap: 7px; }
+.pp-pip {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px dashed rgba(18, 134, 124, .4);
+  background: transparent;
+  transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.pp-pip.on {
+  border-color: #E2701C;
+  border-style: solid;
+  background: radial-gradient(circle at 34% 30%, #FFE2A8 0 12%, #FFA53B 48%, #E2701C 100%);
+  box-shadow: 0 3px 8px rgba(226, 112, 28, .35);
+}
+
+.pp-board {
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #fff;
+  border-radius: var(--radius);
+  background: #F6E7C8;
+  box-shadow: var(--shadow);
+  line-height: 0;
+}
+.pp-canvas {
+  display: block;
+  width: 100%;
+  cursor: ew-resize;
+  overscroll-behavior: contain;
+  -webkit-tap-highlight-color: transparent;
+}
+.pp-canvas:focus-visible {
+  outline: 3px solid var(--sea-deep);
+  outline-offset: -6px;
+  border-radius: calc(var(--radius) - 3px);
+}
+
+.pp-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2.6%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  background: rgba(255, 255, 255, .88);
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(31, 42, 68, .14);
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.pp-hint span { color: var(--coral); font-size: 12px; animation: pp-nudge 1.4s ease-in-out infinite; }
+.pp-hint span:last-child { animation-direction: reverse; }
+.pp-hint.gone { opacity: 0; transform: translateX(-50%) translateY(8px); }
+@keyframes pp-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
+}
+
+.pp-win {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  line-height: 1.4;
+  background: rgba(31, 42, 68, .42);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.pp-win[hidden] { display: none; }
+.pp-win-card {
+  width: 100%;
+  max-width: 300px;
+  padding: 24px 20px 22px;
+  text-align: center;
+}
+.pp-win-emoji { font-size: 46px; line-height: 1; margin-bottom: 8px; }
+.pp-win-line {
+  margin: 0 0 18px;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.pp-actions { margin-top: 16px; text-align: center; }
+.pp-actions:empty { display: none; }
+.pp-skip[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-hint span { animation: none; }
+}
+
+.pp-count { white-space: nowrap; }
+
+@media (max-width: 359px) {
+  .pp-hud { padding: 10px 12px; }
+  .pp-count { font-size: 18px; }
+  .pp-pips { gap: 5px; }
+  .pp-pip { width: 16px; height: 16px; }
+}
